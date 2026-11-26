@@ -21,6 +21,13 @@ async function getApp(): Promise<Express> {
 }
 
 export default async function handler(req: Request, res: Response) {
-  const app = await getApp();
-  return app(req, res);
+  try {
+    const app = await getApp();
+    return app(req, res);
+  } catch (err) {
+    cachedAppPromise = null;
+    const message = err instanceof Error ? err.message : 'Server initialization failed';
+    console.error('[vercel-handler] Error:', message);
+    return res.status(500).json({ error: message });
+  }
 }

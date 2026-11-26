@@ -1,4 +1,4 @@
-import { hydrateRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import {
   HydrationBoundary,
   QueryClient,
@@ -24,14 +24,23 @@ async function hydrate() {
   const router = createAppRouter(queryClient, history);
   await router.load();
 
-  hydrateRoot(
-    document.getElementById('root')!,
+  const rootEl = document.getElementById('root')!;
+  const app = (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={dehydratedState}>
         <RouterProvider router={router} />
       </HydrationBoundary>
-    </QueryClientProvider>,
+    </QueryClientProvider>
   );
+
+  const hasSsrContent =
+    rootEl.innerHTML.trim().length > 0 && !rootEl.innerHTML.includes('<!--app-html-->');
+
+  if (hasSsrContent) {
+    hydrateRoot(rootEl, app);
+  } else {
+    createRoot(rootEl).render(app);
+  }
 }
 
 void hydrate();
