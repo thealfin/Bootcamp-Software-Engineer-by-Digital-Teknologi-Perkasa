@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist/client",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "dist/server/**,dist/client/index.html"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.ts"
+    },
+    {
+      "source": "/((?!assets/|favicon\\.svg|logo\\.png).*)",
+      "destination": "/api/index.ts"
+    }
+  ]
+}
