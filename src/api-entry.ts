@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import type { Express, Request, Response } from 'express';
 import { createServerApp } from '../server';
-import { createBootcampRepository } from '../src/db/repository';
-import { ALL_SEED_MODULES, DEFAULT_MENTOR_USER, MENTOR_PROFILE } from '../src/db/seed-data';
+import { createBootcampRepository } from './db/repository';
+import { ALL_SEED_MODULES, DEFAULT_MENTOR_USER, MENTOR_PROFILE } from './db/seed-data';
 
 let cachedAppPromise: Promise<Express> | null = null;
 

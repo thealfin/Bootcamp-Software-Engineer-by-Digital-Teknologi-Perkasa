@@ -3,18 +3,18 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/client",
   "functions": {
-    "api/index.ts": {
+    "api/api-entry.js": {
       "includeFiles": "{dist/server/**,dist/client/index.html}"
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.ts"
+      "destination": "/api/api-entry.js"
     },
     {
       "source": "/((?!assets/|favicon\\.svg|logo\\.png).*)",
-      "destination": "/api/index.ts"
+      "destination": "/api/api-entry.js"
     }
   ]
 }
