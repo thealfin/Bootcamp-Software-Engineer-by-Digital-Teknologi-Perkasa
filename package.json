@@ -1,0 +1,49 @@
+{
+  "name": "digitek-bootcamp-batch1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Digitek Software Engineering Bootcamp LMS & Interactive Slide Platform (Batch 1)",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "build": "pnpm build:client && pnpm build:server",
+    "start": "tsx server.ts --prod",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx src/db/seed.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "@phosphor-icons/react": "^2.1.7",
+    "@tanstack/react-query": "^5.66.0",
+    "@tanstack/react-router": "^1.114.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.39.0",
+    "express": "^4.21.2",
+    "gsap": "^3.15.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/supertest": "^6.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "drizzle-kit": "^0.30.4",
+    "supertest": "^7.0.0",
+    "tailwindcss": "^4.0.9",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.8"
+  }
+}

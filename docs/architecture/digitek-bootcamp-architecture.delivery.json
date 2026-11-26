@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "679f0af8-e409-4bb7-9ea1-020dd20e0d08",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-digitek-bootcamp-v2\\candidate.json",
+  "output": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\docs\\architecture\\digitek-bootcamp-architecture.html",
+  "specification": {
+    "sha256": "a57eefbf07218f78994ab1b1b978a13d8b28e26da8a500337bddf9e72a84ec8e",
+    "bytes": 6421
+  },
+  "artifact": {
+    "sha256": "a68205b85a95cac6f9ee18e3ac6d9cc0f92fab5bdbf31f405de3e3f0dc648630",
+    "bytes": 773316
+  }
+}

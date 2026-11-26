@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Digitek Bootcamp LMS — Architecture",
+    "output": ".archify/architecture-bootcamp-20261125/bootcamp-lms.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "web-browser", "type": "external", "label": "Web Browser", "pos": [40, 40], "size": [140, 70] },
+    { "id": "frontend-app", "type": "frontend", "label": "Frontend (React 19)", "sublabel": "Vite SSR, TanStack Router, GSAP", "pos": [40, 160], "size": [160, 100] },
+    { "id": "rest-api", "type": "backend", "label": "Express REST API", "sublabel": "/api/*", "pos": [300, 160], "size": [160, 80] },
+    { "id": "auth-service", "type": "backend", "label": "Auth Service", "sublabel": "scrypt password, session cookie", "pos": [300, 300], "size": [160, 80] },
+    { "id": "access-guard", "type": "backend", "label": "Access Guard", "sublabel": "module unlock logic", "pos": [300, 440], "size": [160, 80] },
+    { "id": "db-layer", "type": "backend", "label": "Data Layer (Drizzle)", "sublabel": "Neon + JSON fallback", "pos": [560, 160], "size": [160, 80] },
+    { "id": "neon-db", "type": "database", "label": "Neon Postgres", "sublabel": "5 tables", "pos": [560, 300], "size": [140, 70] },
+    { "id": "local-json", "type": "database", "label": "Local JSON Fallback", "sublabel": ".data/bootcamp.json", "pos": [560, 440], "size": [140, 70] },
+    { "id": "seed-data", "type": "database", "label": "Seed Data (Month 1–3)", "sublabel": "17 modules, 9 slides", "pos": [760, 160], "size": [160, 80] },
+    { "id": "public-assets", "type": "cloud", "label": "Public Assets", "sublabel": "favicon.svg, logo.png", "pos": [760, 300], "size": [140, 70] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Client (Browser)", "wraps": ["web-browser", "frontend-app"] },
+    { "kind": "region", "label": "Server (Node.js)", "wraps": ["rest-api", "auth-service", "access-guard", "db-layer"] },
+    { "kind": "region", "label": "Data Tier", "wraps": ["neon-db", "local-json", "seed-data", "public-assets"] }
+  ],
+  "connections": [
+    { "id": "browser-to-frontend", "from": "web-browser", "to": "frontend-app", "label": "HTTP + HMR" },
+    { "id": "frontend-to-rest", "from": "frontend-app", "to": "rest-api", "label": "fetch /api/*" },
+    { "id": "rest-to-auth", "from": "rest-api", "to": "auth-service", "label": "authenticate" },
+    { "id": "rest-to-access", "from": "rest-api", "to": "access-guard", "label": "evaluate module access" },
+    { "id": "rest-to-db", "from": "rest-api", "to": "db-layer", "label": "query/mutate" },
+    { "id": "db-to-neon", "from": "db-layer", "to": "neon-db", "label": "SQL (prod)" },
+    { "id": "db-to-local", "from": "db-layer", "to": "local-json", "label": "JSON (dev/test)" },
+    { "id": "rest-to-seed", "from": "rest-api", "to": "seed-data", "label": "db:seed" },
+    { "id": "frontend-to-assets", "from": "frontend-app", "to": "public-assets", "label": "load" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Frontend", "items": ["React 19 with Vite SSR", "TanStack Router, React Query", "GSAP slide transitions", "Tailwind CSS styling"] },
+    { "dot": "emerald", "title": "Backend", "items": ["Express REST API", "Neon Postgres (prod) + JSON fallback", "Password hashing via scrypt", "Mentor passcode auth"] },
+    { "dot": "rose", "title": "Security", "items": ["Session cookie-based auth", "Password min 8 chars", "Module unlock gates", "Mentor role access control"] }
+  ]
+}

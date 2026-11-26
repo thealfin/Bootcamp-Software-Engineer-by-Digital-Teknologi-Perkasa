@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "architecture",
+  "quality": "showcase",
+  "specification": {
+    "path": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\candidate.json",
+    "sha256": "a21847d4dfd83aeea705535cd1aa627b3e5fd9cf1dcdde76e595e0f9e7f604dd",
+    "bytes": 3490
+  },
+  "artifact": {
+    "path": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\bootcamp-lms.html",
+    "sha256": "20c72af2da5b30509d7db24570fef8a20b92d2bdd10579d349d721eeb1156dd5",
+    "bytes": 765126
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\bootcamp-lms.finalize.json",
+    "summaryReceipt": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\bootcamp-lms.finalize-summary.json",
+    "browserCheckReceipt": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\bootcamp-lms.browser-check.json"
+  },
+  "update": {
+    "status": "update_available",
+    "installedVersion": "3.0.1",
+    "availableVersion": "3.3.1",
+    "releaseNotes": "https://github.com/tt-a1i/archify/releases/tag/v3.3.1",
+    "severity": "normal",
+    "checkedAt": "2026-11-25T09:41:49.557Z",
+    "source": "cache",
+    "noticeRequired": true,
+    "noticeText": "Archify update: 3.0.1 → 3.3.1. A previous check at 2026-11-25T09:41:49.557Z found a newer release. Release notes: https://github.com/tt-a1i/archify/releases/tag/v3.3.1. The installed Skill has not changed; ask to snooze or ignore this reminder.",
+    "eventKey": "archify@sha256:b92b4d55446966fd74e5338a45d6de9a7a1b194420cd5eb14d2cdc39f1053b80"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 7586,
+  "visualReviewRecommendation": {
+    "action": "inspect-route-readability",
+    "signals": {
+      "resolvedCrossovers": 3,
+      "routesOverSuggestedBends": 2,
+      "routesOverSuggestedStretch": 2
+    },
+    "reason": "Automated gates passed, but crossings or detours still need perceptual review before claiming visual quality.",
+    "affectedRoutes": {
+      "crossings": [
+        {
+          "left": {
+            "id": "rest-to-access",
+            "from": "rest-api",
+            "to": "access-guard",
+            "label": "evaluate module access",
+            "collectionIndex": 3,
+            "artifactIndex": 4
+          },
+          "right": {
+            "id": "frontend-to-assets",
+            "from": "frontend-app",
+            "to": "public-assets",
+            "label": "load",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "point": [
+            297,
+            394
+          ]
+        },
+        {
+          "left": {
+            "id": "db-to-neon",
+            "from": "db-layer",
+            "to": "neon-db",
+            "label": "SQL (prod)",
+            "collectionIndex": 5,
+            "artifactIndex": 6
+          },
+          "right": {
+            "id": "db-to-local",
+            "from": "db-layer",
+            "to": "local-json",
+            "label": "JSON (dev/test)",
+            "collectionIndex": 6,
+            "artifactIndex": 7
+          },
+          "point": [
+            646.8461538461538,
+            264
+          ],
+          "sharedNode": "db-layer"
+        },
+        {
+          "left": {
+            "id": "db-to-local",
+            "from": "db-layer",
+            "to": "local-json",
+            "label": "JSON (dev/test)",
+            "collectionIndex": 6,
+            "artifactIndex": 7
+          },
+          "right": {
+            "id": "frontend-to-assets",
+            "from": "frontend-app",
+            "to": "public-assets",
+            "label": "load",
+            "collectionIndex": 8,
+            "artifactIndex": 9
+          },
+          "point": [
+            703,
+            394
+          ]
+        }
+      ],
+      "detours": [
+        {
+          "relationship": {
+            "id": "rest-to-access",
+            "from": "rest-api",
+            "to": "access-guard",
+            "label": "evaluate module access",
+            "collectionIndex": 3,
+            "artifactIndex": 4
+          },
+          "bends": 4,
+          "stretch": 1.734,
+          "directCorridorBlockers": [
+            {
+              "id": "auth-service",
+              "label": "Auth Service",
+              "box": [
+                300,
+                300,
+                160,
+                80
+              ]
+            }
+          ]
+        },
+        {
+          "relationship": {
+            "id": "db-to-local",
+            "from": "db-layer",
+            "to": "local-json",
+            "label": "JSON (dev/test)",
+            "collectionIndex": 6,
+            "artifactIndex": 7
+          },
+          "bends": 4,
+          "stretch": 1.69
+        }
+      ],
+      "truncated": false
+    },
+    "hints": [
+      "rest-api → access-guard crosses frontend-app → public-assets: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "db-layer → neon-db and db-layer → local-json cross next to db-layer: move node neon-db or local-json so the two reach db-layer from different sides (for example one level with it, one directly above or below it).",
+      "db-layer → local-json crosses frontend-app → public-assets: move the node of whichever is a branch, return, or second entrance to the other side of the main path, so that relationship runs through an empty corridor.",
+      "db-layer → local-json needs 4 bends: move node db-layer or local-json so they share a row or column with matching centers, or sit diagonally with a clear corner."
+    ],
+    "repair": "Trace these relationships at the desktop viewport. For Architecture, use references/architecture-layout-repair.md: reflow a blocked main path or tangled connected scene, and repair an isolated defect locally only when the surrounding composition is accepted. Preserve all semantic content and user-fixed geometry. Rerun finalize once after the edit."
+  }
+}

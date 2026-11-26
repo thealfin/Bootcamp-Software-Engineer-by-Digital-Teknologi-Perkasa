@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Digitek Bootcamp — Full-Stack SSR & Progressive Learning Architecture",
+    "output": "docs/architecture/digitek-bootcamp-architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "mentor",
+      "type": "external",
+      "icon": "person",
+      "label": "Mentor / Admin",
+      "sublabel": "Browser /admin",
+      "pos": [40, 80],
+      "size": [150, 64]
+    },
+    {
+      "id": "admin",
+      "type": "frontend",
+      "label": "Admin Panel",
+      "sublabel": "6 Views + CRUD + KPI",
+      "pos": [290, 80],
+      "size": [170, 64]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Auth & RBAC",
+      "sublabel": "HMAC + scrypt + Guard",
+      "pos": [620, 80],
+      "size": [175, 64],
+      "tag": "HttpOnly Cookie"
+    },
+    {
+      "id": "postgres",
+      "type": "database",
+      "label": "Neon PostgreSQL",
+      "sublabel": "Drizzle ORM Schema",
+      "pos": [910, 80],
+      "size": [175, 64]
+    },
+    {
+      "id": "student",
+      "type": "external",
+      "icon": "person",
+      "label": "Peserta & Guest",
+      "sublabel": "Browser SPA / SSR",
+      "pos": [40, 250],
+      "size": [150, 64]
+    },
+    {
+      "id": "router",
+      "type": "frontend",
+      "label": "TanStack Router",
+      "sublabel": "SSR + Client Shell",
+      "pos": [290, 250],
+      "size": [170, 64]
+    },
+    {
+      "id": "express",
+      "type": "backend",
+      "label": "Express + Vite SSR",
+      "sublabel": "server.ts :3000",
+      "pos": [620, 250],
+      "size": [175, 64]
+    },
+    {
+      "id": "repo",
+      "type": "backend",
+      "label": "Repository Layer",
+      "sublabel": "NeonDrizzle / LocalJson",
+      "pos": [910, 250],
+      "size": [175, 64]
+    },
+    {
+      "id": "landing",
+      "type": "frontend",
+      "label": "Landing & AuthModal",
+      "sublabel": "Catalog + Password Auth",
+      "pos": [160, 420],
+      "size": [175, 64]
+    },
+    {
+      "id": "slides",
+      "type": "frontend",
+      "label": "SlidePlayer",
+      "sublabel": "GSAP + Gate + Task",
+      "pos": [365, 420],
+      "size": [160, 64]
+    },
+    {
+      "id": "apiclient",
+      "type": "frontend",
+      "label": "TanStack Query",
+      "sublabel": "src/lib/api.ts Hooks",
+      "pos": [625, 420],
+      "size": [165, 64]
+    },
+    {
+      "id": "localdb",
+      "type": "database",
+      "label": "Local JSON Fallback",
+      "sublabel": ".data/bootcamp-db.json",
+      "pos": [910, 420],
+      "size": [175, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Digitek Bootcamp Platform (TanStack Start/Router + Express SSR)",
+      "wraps": ["admin", "auth", "postgres", "router", "express", "repo", "landing", "slides", "apiclient", "localdb"]
+    },
+    {
+      "kind": "security-group",
+      "label": "API & Auth Boundary (server.ts + session.ts + access-guard.ts)",
+      "wraps": ["express", "auth"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "mentor-to-admin",
+      "from": "mentor",
+      "to": "admin",
+      "label": "/admin/*",
+      "variant": "emphasis"
+    },
+    {
+      "id": "student-to-router",
+      "from": "student",
+      "to": "router",
+      "label": "HTTPS / SSR",
+      "variant": "emphasis"
+    },
+    {
+      "id": "router-to-admin",
+      "from": "router",
+      "to": "admin",
+      "label": "Admin routes",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "router-to-landing",
+      "from": "router",
+      "to": "landing",
+      "label": "/ & /profil-mentor",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "router-to-slides",
+      "from": "router",
+      "to": "slides",
+      "label": "/modul/$slug",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "router-to-express",
+      "from": "router",
+      "to": "express",
+      "label": "SSR render",
+      "variant": "emphasis"
+    },
+    {
+      "id": "slides-to-apiclient",
+      "from": "slides",
+      "to": "apiclient",
+      "label": "Query hooks"
+    },
+    {
+      "id": "apiclient-to-express",
+      "from": "apiclient",
+      "to": "express",
+      "label": "REST /api/*",
+      "variant": "emphasis",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "express-to-auth",
+      "from": "express",
+      "to": "auth",
+      "label": "scrypt + RBAC",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "express-to-repo",
+      "from": "express",
+      "to": "repo",
+      "label": "BootcampRepo",
+      "variant": "emphasis"
+    },
+    {
+      "id": "repo-to-postgres",
+      "from": "repo",
+      "to": "postgres",
+      "label": "Drizzle SQL",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "repo-to-localdb",
+      "from": "repo",
+      "to": "localdb",
+      "label": "JSON fallback",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Frontend Features (src/features/*)",
+      "items": [
+        "src/router.tsx & src/entry-server.tsx: SSR prefetch + TanStack Router routes",
+        "src/features/landing/*: LandingPage, Navbar, AuthModal (password + login), MentorProfilePage",
+        "src/features/slides/*: Fullscreen GSAP SlidePlayer, 8 SlideLayouts, GateSlide & TaskSlide",
+        "src/features/admin/*: AdminLayout, AdminLoginPage, Overview, Review, Participants, Materials CRUD, Analytics"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Security & Progressive Unlock",
+      "items": [
+        "src/lib/session.ts: scryptSync + 16B salt + timingSafeEqual passwords, HMAC-SHA256 HttpOnly cookie",
+        "src/lib/access-guard.ts: Guest SUMMARY_ONLY (P01-P15), P00/P16 open, progressive unlock on Mentor ACC",
+        "server.ts: requireMentor RBAC guard (403) on all /api/admin/* & /api/mentor/* endpoints"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Persistence & Dual Repository",
+      "items": [
+        "src/db/schema.ts: PostgreSQL tables users, modules, slides, task_submissions, module_unlocks",
+        "src/db/repository.ts: NeonDrizzleRepository (primary) with automatic LocalJsonRepository fallback",
+        "src/db/seed/*: P00-P16 modules & slides seeded idempotently on startup"
+      ]
+    }
+  ]
+}

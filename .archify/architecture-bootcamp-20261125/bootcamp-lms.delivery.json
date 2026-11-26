@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "64b3d0e0-2164-4b87-9eab-87af8d4de4d3",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\candidate.json",
+  "output": "D:\\All Project Website\\Bootcamp Intern Digital Teknologi Perkasa\\.archify\\architecture-bootcamp-20261125\\bootcamp-lms.html",
+  "specification": {
+    "sha256": "a21847d4dfd83aeea705535cd1aa627b3e5fd9cf1dcdde76e595e0f9e7f604dd",
+    "bytes": 3490
+  },
+  "artifact": {
+    "sha256": "20c72af2da5b30509d7db24570fef8a20b92d2bdd10579d349d721eeb1156dd5",
+    "bytes": 765126
+  }
+}
